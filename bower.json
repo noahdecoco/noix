@@ -1,0 +1,23 @@
+{
+  "name": "Noahdecoco",
+  "description": "Personal portfolio",
+  "main": "index.html",
+  "authors": [
+    "Noahdecoco"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "soma.js": "~2.1.4",
+    "director": "^1.2.8",
+    "animate.css": "^3.5.1"
+  }
+}

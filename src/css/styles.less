@@ -1,0 +1,35 @@
+@brandColour: #76F4C3;
+@priColour: #76F4C3;
+@secColour: #333333;
+@fontColour: #ffffff;
+
+body {
+	font-family: sans-serif;
+	color: @fontColour;
+	background-color: @secColour;
+	max-width: 800px;
+	min-width: 300px;
+	margin: auto;
+}
+
+h1 {
+	color: @brandColour;
+}
+
+.navbar {
+	overflow: auto;
+}
+
+.button {
+	color: @secColour;
+	background-color: @priColour;
+	padding: 6px 12px;
+	float: left;
+	margin: 0 6px 0 0;
+	cursor: pointer;
+	text-decoration: none;
+
+	&.active {
+		background-color: lighten(@priColour, 20%);
+	}
+}
