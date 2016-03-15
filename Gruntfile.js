@@ -14,6 +14,7 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-wiredep');
 	grunt.loadNpmTasks('grunt-bower-concat');
+	grunt.loadNpmTasks('grunt-browser-sync');
 
 	// CONFIG
 	grunt.initConfig({
@@ -71,25 +72,25 @@ module.exports = function(grunt){
 					collapseWhitespace: false
 				},
 				files: [
-                    {
-                        expand: true,
-                        cwd: 'src/',
-                        src: ['**/*.html'],
-                        dest: 'dist/'
-                    }
-                ]
+				{
+					expand: true,
+					cwd: 'src/',
+					src: ['**/*.html'],
+					dest: 'dist/'
+				}
+				]
 			}
 		},
 
 		imagemin: {
 			build: {
 				files: [
-					{
-						expand: true,
-						cwd: 'src/img/',
-						src: ['**/*.jpg','**/*.png'],
-						dest: 'dist/img/'
-					}
+				{
+					expand: true,
+					cwd: 'src/img/',
+					src: ['**/*.jpg','**/*.png'],
+					dest: 'dist/img/'
+				}
 				]
 			}
 		},
@@ -108,6 +109,22 @@ module.exports = function(grunt){
 				}
 			}
 		},
+
+		browserSync: {
+            dev: {
+                bsFiles: {
+                    src : [
+                        'dist/css/*.css',
+                        'dist/js/*.js',
+                        'dist/*.html'
+                    ]
+                },
+                options: {
+                    watchTask: true,
+                    server: './dist'
+                }
+            }
+        },
 
 		watch: {
 			stylesheets: {
@@ -128,7 +145,7 @@ module.exports = function(grunt){
 
 	// TASKS
 	grunt.registerTask('default', 
-	[
+		[
 		'clean', 
 		'jshint',
 		'bower_concat',
@@ -137,7 +154,13 @@ module.exports = function(grunt){
 		'cssmin', 
 		'htmlmin', 
 		'imagemin'
-	]);
+		]);
+
+	grunt.registerTask('serve', 
+		[
+		'browserSync',
+		'watch'
+		]);
 
 	
 };
