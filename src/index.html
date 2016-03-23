@@ -6,16 +6,19 @@
 	<link rel="stylesheet" href="css/styles.min.css">
 </head>
 <body>
-	<h1>Noix.js</h1>
+	
+	<h1>Todo List</h1>
 
 	<div class="navbar">
-		<a href="#/about" class="button">About</a>
-		<a href="#/styles" class="button">Styles</a>
+		<button id="add-item">Add Item</button>
+		<button id="del-item">Delete Item</button>
+		<button id="clear-items">Clear Items</button>
 	</div>
+
+	<hr>
 	
-	<div id="content">
-		<!-- Content will be loaded here -->
-	</div>
+	<ul id="todo-list">
+	</ul>
 
 	<!-- BOWER -->
 	<script type="text/javascript" src="js/bower/bower.min.js"></script>

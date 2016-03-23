@@ -1,4 +1,12 @@
-var Noix = function() {
+var Noix = function(_init) {
+    try {
+        // this.init = _init;
+    } catch (err) {
+        // console.log(err);
+    }
+};
+
+Noix.prototype = function() {
 
     var _Event = function(sender){
         this._sender = sender;
@@ -6,10 +14,10 @@ var Noix = function() {
     };
 
     _Event.prototype = {
-        attach: function(listener){
+        attachListener: function(listener){
             this._listeners.push(listener);
         },
-        notify: function(args){
+        notifyListener: function(args){
             for(var i = 0; i < this._listeners.length; i++){
                 this._listeners[i](this._sender, args);
             }
@@ -34,28 +42,37 @@ var Noix = function() {
         }
     };
 
-    var _View = function(model, elements) {
+    var _View = function(model, view) {
         var _self = this;
         _self._model = model;
-        _self._elements = elements;
+        _self._view = view;
 
         _self._listModified = new _Event(_self);
         _self._addButtonClicked = new _Event(_self);
 
-        _this._model._itemAdded.attach(function(){
+        _self._model._itemAdded.attachListener(function(){
             console.log("item added!");
         });
-
     };
 
     _View.prototype = {
         render: function(){
-            console.log("Rendering " + this._model + " in this " + this._elements);
+            this._view.innerHTML = "";
+            for (var i = 0; i < this._model._data.length; i++){
+                var li = document.createElement("li");
+                li.innerHTML = this._model._data[i];
+                this._view.appendChild(li);
+            }
         }
     };
 
+    var _Controller = function(){
+
+    };
+
     return {
-        model : _Model,
-        view : _View
+        model      : _Model,
+        view       : _View,
+        controller : _Controller
     };
 };

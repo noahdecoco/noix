@@ -1,9 +1,9 @@
-/*function Event(sender) {
+function Event(sender) {
     this._sender = sender;
     this._listeners = [];
-}*/
+}
 
-/*Event.prototype = {
+Event.prototype = {
     attach: function (listener) {
         this._listeners.push(listener);
     },
@@ -14,22 +14,22 @@
             this._listeners[index](this._sender, args);
         }
     }
-};*/
+};
 
 /**
  * The Model. Model stores items and notifies
  * observers about changes.
  */
-/*function ListModel(items) {
+function ListModel(items) {
     this._items = items;
     this._selectedIndex = -1;
 
     this.itemAdded = new Event(this);
     this.itemRemoved = new Event(this);
     this.selectedIndexChanged = new Event(this);
-}*/
+}
 
-/*ListModel.prototype = {
+ListModel.prototype = {
     getItems: function () {
         return [].concat(this._items);
     },
@@ -67,14 +67,14 @@
             previous: previousIndex
         });
     }
-};*/
+};
 
 /**
  * The View. View presents the model and provides
  * the UI events. The controller is attached to these
  * events to handle the user interraction.
  */
-/*function ListView(model, elements) {
+function ListView(model, elements) {
     this._model = model;
     this._elements = elements;
 
@@ -104,9 +104,9 @@
     this._elements.delButton.click(function () {
         _this.delButtonClicked.notify();
     });
-}*/
+}
 
-/*ListView.prototype = {
+ListView.prototype = {
     show: function () {
         this.rebuildList();
     },
@@ -125,13 +125,13 @@
         }
         this._model.setSelectedIndex(-1);
     }
-};*/
+};
 
 /**
  * The Controller. Controller responds to user actions and
  * invokes changes on the model.
  */
-/*function ListController(model, view) {
+function ListController(model, view) {
     this._model = model;
     this._view = view;
 
@@ -148,9 +148,9 @@
     this._view.delButtonClicked.attach(function () {
         _this.delItem();
     });
-}*/
+}
 
-/*ListController.prototype = {
+ListController.prototype = {
     addItem: function () {
         var item = window.prompt('Add item:', '');
         if (item) {
@@ -170,16 +170,16 @@
     updateSelected: function (index) {
         this._model.setSelectedIndex(index);
     }
-};*/
+};
 
-/*$(function () {
+$(function () {
     var model = new ListModel(['PHP', 'JavaScript']),
         view = new ListView(model, {
             'list': $('#list'),
-                'addButton': $('#plusBtn'),
-                'delButton': $('#minusBtn')
+            'addButton': $('#plusBtn'),
+            'delButton': $('#minusBtn')
         }),
         controller = new ListController(model, view);
 
     view.show();
-});*/
+});
