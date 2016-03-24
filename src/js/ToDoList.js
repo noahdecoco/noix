@@ -172,7 +172,7 @@ ListController.prototype = {
     }
 };
 
-$(function () {
+/*$(function () {
     var model = new ListModel(['PHP', 'JavaScript']),
         view = new ListView(model, {
             'list': $('#list'),
@@ -182,4 +182,4 @@ $(function () {
         controller = new ListController(model, view);
 
     view.show();
-});
+});*/
