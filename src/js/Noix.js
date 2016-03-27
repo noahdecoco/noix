@@ -59,10 +59,6 @@ Noix.View = function(model, elements) {
     _this.listModified = new Noix.Event(_this);
     _this.addButtonClicked = new Noix.Event(_this);
     _this.delButtonClicked = new Noix.Event(_this);
-
-    // _this.model.itemAdded.attachListener(function(){
-        // console.log("item added");
-    // });
     
     var _render = function() {
         _this.elements.innerHTML = "";
@@ -73,10 +69,18 @@ Noix.View = function(model, elements) {
         }
     };
 
+    var _registerControl = function(options) {
+        console.log("Register button", options);
+        _this[options.eventName] = new Event(_this);
+        options.control.addEventListener("click", options.eventCallback);
+    };
+
     return {
-        render : _render
+        render : _render,
+        registerControl : _registerControl
     };
 };
+
 
 // Controller - handles the events
 

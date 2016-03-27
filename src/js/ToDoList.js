@@ -78,9 +78,6 @@ function ListView(model, elements) {
     this._model = model;
     this._elements = elements;
 
-    this.listModified = new Event(this);
-    this.addButtonClicked = new Event(this);
-    this.delButtonClicked = new Event(this);
 
     var _this = this;
 
@@ -93,14 +90,19 @@ function ListView(model, elements) {
     });
 
     // attach listeners to HTML controls
+    this.listModified = new Event(this);
     this._elements.list.change(function (e) {
         _this.listModified.notify({
             index: e.target.selectedIndex
         });
     });
+    
+    this.addButtonClicked = new Event(this);
     this._elements.addButton.click(function () {
         _this.addButtonClicked.notify();
     });
+    
+    this.delButtonClicked = new Event(this);
     this._elements.delButton.click(function () {
         _this.delButtonClicked.notify();
     });
