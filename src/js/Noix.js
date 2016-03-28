@@ -1,26 +1,47 @@
-var Noix =  { version : 1 };
+var Noix = function(options) {
+    this.config = {};
+
+    if(options) {
+        for(var key in options){
+            if(options.hasOwnProperty(key)){
+                this.config[key] = options[key];
+            }
+        }
+    }
+};
+
 
 // Event - attach & notify listeners
 
-Noix.Event = function(sender){
-    var _this = this;
-    _this.sender = sender;
-    _this.listeners = [];
+Noix.Event = function(sender) {
+    this.sender = sender;
+    this.listeners = [];
+};
 
-    var _attachListener = function(listener){
-        _this.listeners.push(listener);
-    };
+Noix.Event.prototype.setSender = function(sender){
+    this.sender = sender;
+};
 
-    var _notifyListener = function(args){
-        for(var i = 0; i < _this.listeners.length; i++){
-            _this.listeners[i](_this.sender, args);
-        }
-    };
+Noix.Event.prototype.getSender = function(){
+    return this.sender;
+};
 
-    return {
-        attachListener : _attachListener,
-        notifyListener : _notifyListener
-    };
+Noix.Event.prototype.attachListener = function(){
+    this.listeners.push(listener);
+};
+
+Noix.Event.prototype.removeListener = function(){
+    // todo: remove a listener
+};
+
+Noix.Event.prototype.notifyListener = function(){
+    // todo: notify a particular listener
+};
+
+Noix.Event.prototype.notifyListeners = function(args){
+    for(var i = 0; i < _this.listeners.length; i++){
+        this.listeners[i](_this.sender, args);
+    }
 };
 
 
@@ -35,11 +56,8 @@ Noix.Model = function(data) {
         return [].concat(_this.data);
     };
 
-    var _addData = function() {
-        _this.data.push(data);
-        _this.itemAdded.notify({
-            data: data
-        });
+    var _addData = function(d) {
+        
     };
 
     return {
@@ -55,10 +73,6 @@ Noix.View = function(model, elements) {
     var _this = this;
     _this.model = model;
     _this.elements = elements;
-
-    _this.listModified = new Noix.Event(_this);
-    _this.addButtonClicked = new Noix.Event(_this);
-    _this.delButtonClicked = new Noix.Event(_this);
     
     var _render = function() {
         _this.elements.innerHTML = "";
@@ -70,9 +84,10 @@ Noix.View = function(model, elements) {
     };
 
     var _registerControl = function(options) {
-        console.log("Register button", options);
+        // console.log("Register button", options);
         _this[options.eventName] = new Event(_this);
-        options.control.addEventListener("click", options.eventCallback);
+        console.log(_this[options.eventName]);
+        // options.control.addEventListener("click", _this[options.eventName].notifyListener);
     };
 
     return {
