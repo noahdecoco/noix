@@ -36,6 +36,7 @@ Noix.Event.prototype.removeListener = function(){
 
 Noix.Event.prototype.notifyListener = function(){
     // todo: notify a particular listener
+    console.log("notifying a listener");
 };
 
 Noix.Event.prototype.notifyListeners = function(args){
@@ -48,53 +49,57 @@ Noix.Event.prototype.notifyListeners = function(args){
 // Model - the data
 
 Noix.Model = function(data) {
-    var _this = this;
-    _this.data = data;
-    _this.itemAdded = new Noix.Event(_this);
+    this.data = data;
+};
 
-    var _getData = function() {
-        return [].concat(_this.data);
-    };
+Noix.Model.prototype.setData = function(data) {
+    this.data = data;
+};
 
-    var _addData = function(d) {
-        
-    };
+Noix.Model.prototype.getData = function() {
+    return [].concat(this.data);
+};
 
-    return {
-        getData : _getData,
-        addData : _addData
-    };
+Noix.Model.prototype.addData = function(data) {
+    this.data.concat(data);
+};
+
+Noix.Model.prototype.removeData = function(data) {
+    // todo: remove data
+};
+
+Noix.Model.prototype.clearData = function(data) {
+    this.data = [];
+};
+
+Noix.Model.prototype.addEventListener = function(){
+    this[eventName] = new Noix.Event(this);
 };
 
 
 // View - the user interface
 
-Noix.View = function(model, elements) {
-    var _this = this;
-    _this.model = model;
-    _this.elements = elements;
-    
-    var _render = function() {
-        _this.elements.innerHTML = "";
-        for (var i = 0; i < _this.model.getData().length; i++){
-            var li = document.createElement("li");
-            li.innerHTML = _this.model.getData()[i];
-            _this.elements.appendChild(li);
-        }
-    };
-
-    var _registerControl = function(options) {
-        // console.log("Register button", options);
-        _this[options.eventName] = new Event(_this);
-        console.log(_this[options.eventName]);
-        // options.control.addEventListener("click", _this[options.eventName].notifyListener);
-    };
-
-    return {
-        render : _render,
-        registerControl : _registerControl
-    };
+Noix.View = function(model, element) {
+    this.model = model;
+    this.element = element;
 };
+
+Noix.View.prototype.render = function(model, element){
+    element.innerHTML = "";
+    for (var i = 0; i < this.model.data.length; i++){
+        var li = document.createElement("li");
+        li.innerHTML = this.model.data[i];
+        element.appendChild(li);
+    }
+};
+
+Noix.View.prototype.registerControl = function(options) {
+    this[options.eventName] = new Noix.Event(this);
+    console.log(this[options.eventName]);
+    options.control.addEventListener("click", this[options.eventName].notifyListener);
+};
+
+    
 
 
 // Controller - handles the events
