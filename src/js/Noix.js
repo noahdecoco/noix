@@ -26,7 +26,7 @@ Noix.Event.prototype.getSender = function(){
     return this.sender;
 };
 
-Noix.Event.prototype.attachListener = function(){
+Noix.Event.prototype.attachListener = function(listener){
     this.listeners.push(listener);
 };
 
@@ -82,6 +82,7 @@ Noix.Model.prototype.addEventListener = function(){
 Noix.View = function(model, element) {
     this.model = model;
     this.element = element;
+    this.events = [];
 };
 
 Noix.View.prototype.render = function(model, element){
@@ -95,6 +96,7 @@ Noix.View.prototype.render = function(model, element){
 
 Noix.View.prototype.registerControl = function(options) {
     this[options.eventName] = new Noix.Event(this);
+    // this[options.eventName].attachListener
     console.log(this[options.eventName]);
     options.control.addEventListener("click", this[options.eventName].notifyListener);
 };
