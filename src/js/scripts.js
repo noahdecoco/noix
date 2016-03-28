@@ -1,34 +1,30 @@
 (function(){
 
-	console.log("Noix.js (v1.0.0)", new Date());	
+	var element = document.getElementById("todo-list");
+	var data = ["Make a todo list", "Learn the MVC pattern"];
 
-	var mainContent = document.getElementById('content');
-	var http = new XMLHttpRequest();
 
-	var sendReq = function(req) {
-	    http.open('get', "views/" + req + ".html");
-	    http.onreadystatechange = handleResponse;
-	    http.send(null);
+	var model = new Noix.Model(data);
+	var view = new Noix.View(model, element);
+
+	var addButtonClicked = function(){
+		console.log("The add button was clicked");
 	};
 
-	var handleResponse = function() {
-		if(http.status !== 404) {
-		    if (http.readyState == 4) {
-		        var response = http.responseText;
-		        mainContent.innerHTML=response;
-		    }
-		} else {
-			mainContent.innerHTML = "404";
-		}
-	};
-
-	var routes = {
-		'/:req': sendReq
-	};
-
-  	var router = Router(routes);
-
-	router.init('/about');
+	view.registerControl({
+		control: document.getElementById("add-item"),
+		eventName: "addButtonClicked",
+		eventCallback: addButtonClicked
+	});
 
 
-})(window.app = window.app || {});
+	/*
+
+	var view = new Noix.View(model, todoList);
+
+
+	var controller = Noix.Controller(model, view);
+
+	controller.renderView();*/
+
+})();
