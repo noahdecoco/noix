@@ -34,14 +34,14 @@ Noix.Event.prototype.removeListener = function(){
     // todo: remove a listener
 };
 
-Noix.Event.prototype.notifyListener = function(){
+Noix.Event.prototype.notifyListener = function(listener){
     // todo: notify a particular listener
-    console.log("notifying a listener");
+    console.log("notifying a listener", this.sender, listener);
 };
 
 Noix.Event.prototype.notifyListeners = function(args){
-    for(var i = 0; i < _this.listeners.length; i++){
-        this.listeners[i](_this.sender, args);
+    for(var i = 0; i < this.listeners.length; i++){
+        this.listeners[i]();
     }
 };
 
@@ -86,12 +86,13 @@ Noix.View = function(model, element) {
 };
 
 Noix.View.prototype.render = function(model, element){
-    element.innerHTML = "";
+    console.log("render");
+    /*element.innerHTML = "";
     for (var i = 0; i < this.model.data.length; i++){
         var li = document.createElement("li");
         li.innerHTML = this.model.data[i];
         element.appendChild(li);
-    }
+    }*/
 };
 
 Noix.View.prototype.registerControl = function(options) {
@@ -101,7 +102,6 @@ Noix.View.prototype.registerControl = function(options) {
     options.control.addEventListener("click", this[options.eventName].notifyListener);
 };
 
-    
 
 
 // Controller - handles the events
